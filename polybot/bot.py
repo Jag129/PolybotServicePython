@@ -65,6 +65,23 @@ class Bot:
         logger.info(f'Incoming message: {msg}')
         self.send_text(msg['chat']['id'], f'Your original message: {msg["text"]}')
 
+    def User_Greeting(self, chat_id):
+        """Greet user when they are sending a message"""
+        greeting_message = "👋 Hello! Welcome to the bot. How can I help you today?"
+        self.send_text(chat_id, greeting_message)
+
+    def send_help_message(self, chat_id):
+        """Send a help message with available commands"""
+        help_text = """
+    Available commands:
+    /start - Start the bot
+    /help - Show this help message
+    /quote - Quote your message
+    Send a photo - I'll process it for you
+        """
+        self.send_text(chat_id, help_text)
+
+
 
 class QuoteBot(Bot):
     def handle_message(self, msg):
