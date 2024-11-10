@@ -1,6 +1,8 @@
 from pathlib import Path
 from matplotlib.image import imread, imsave
 
+from polybot.test.test_segment import img_path
+
 
 def rgb2gray(rgb):
     r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
@@ -13,7 +15,7 @@ class Img:
     def __init__(self, path):
         """
         Do not change the constructor implementation
-        """
+            """
         self.path = Path(path)
         self.data = rgb2gray(imread(path)).tolist()
 

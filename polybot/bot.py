@@ -3,7 +3,7 @@ from loguru import logger
 import os
 import time
 from telebot.types import InputFile
-from polybot.img_proc import Img
+#from polybot.img_proc import Img
 
 
 class Bot:
@@ -76,3 +76,5 @@ class QuoteBot(Bot):
 
 class ImageProcessingBot(Bot):
     pass
+
+#img = /home/jess/Downloads/image.png
