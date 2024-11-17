@@ -63,11 +63,20 @@ class Bot:
     def handle_message(self, msg):
         """Bot Main message handler"""
         logger.info(f'Incoming message: {msg}')
-        self.send_text(msg['chat']['id'], f'Your original message: {msg["text"]}')
+        chat_id = msg['chat']['id']
+
+        # Check if it's a /start command
+        if 'text' in msg and msg['text'] == '/start':
+            self.User_Greeting(chat_id)
+        elif 'text' in msg and msg['text'] == '/help':
+            self.send_help_message(chat_id)
+        else:
+            self.send_text(chat_id, f'Your original message: {msg["text"]}')
+
 
     def User_Greeting(self, chat_id):
         """Greet user when they are sending a message"""
-        greeting_message = "👋 Hello! Welcome to the bot. How can I help you today?"
+        greeting_message = "Hey, welcome to Jarvis!"  # Updated greeting message
         self.send_text(chat_id, greeting_message)
 
     def send_help_message(self, chat_id):
@@ -82,13 +91,28 @@ class Bot:
         self.send_text(chat_id, help_text)
 
 
-
 class QuoteBot(Bot):
     def handle_message(self, msg):
         logger.info(f'Incoming message: {msg}')
+        chat_id = msg['chat']['id']
 
-        if msg["text"] != 'Please don\'t quote me':
-            self.send_text_with_quote(msg['chat']['id'], msg["text"], quoted_msg_id=msg["message_id"])
+        # Check if it's a /start command
+        if 'text' in msg and msg['text'] == '/start':
+            self.User_Greeting(chat_id)
+        elif 'רשל' in msg.get('text', ''):
+            self.send_text(chat_id, 'אותך אני הכי אוהב!')
+        elif 'יוני' in msg.get('text', ''):
+            self.send_text(chat_id, 'יוני יא תותח תחת')
+        elif 'ישי' in msg.get('text', ''):
+            self.send_text(chat_id, 'איזה באסה שאני לא ישי')
+        elif 'שיראל' in msg.get('text', ''):
+            self.send_text(chat_id, 'בהצלחה בלימודים, תעשי חיל!')
+        elif msg.get("text") != 'Please don\'t quote me':
+            # Default behavior for quoting messages
+            self.send_text_with_quote(chat_id, msg["text"], quoted_msg_id=msg["message_id"])
+        else:
+            # Handle any other text without quoting
+            self.send_text(chat_id, f'Your original message: {msg["text"]}')
 
 
 class ImageProcessingBot(Bot):
