@@ -72,7 +72,7 @@ class QuoteBot(Bot):
 
         if msg["text"] != 'Please don\'t quote me':
             self.send_text_with_quote(msg['chat']['id'], msg["text"], quoted_msg_id=msg["message_id"])
-
+        #return 'OK'
 
 class ImageProcessingBot(Bot):
     last_caption_concat = False
